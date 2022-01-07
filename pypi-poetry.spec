@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.1.12
-Release  : 5
+Release  : 6
 URL      : https://files.pythonhosted.org/packages/2e/90/0905a0ad5bb1a9eb8a820337e7c629cde76060fc1dc934e7b8ed450241b8/poetry-1.1.12.tar.gz
 Source0  : https://files.pythonhosted.org/packages/2e/90/0905a0ad5bb1a9eb8a820337e7c629cde76060fc1dc934e7b8ed450241b8/poetry-1.1.12.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -15,9 +15,6 @@ Requires: pypi-poetry-license = %{version}-%{release}
 Requires: pypi-poetry-python = %{version}-%{release}
 Requires: pypi-poetry-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-Provides: poetry
-Provides: poetry-python
-Provides: poetry-python3
 BuildRequires : pypi(poetry_core)
 
 %description
@@ -86,7 +83,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1641470352
+export SOURCE_DATE_EPOCH=1641572878
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -96,6 +93,8 @@ export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
+pypi-dep-fix.py . keyring
+pypi-dep-fix.py . packaging
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 %install
@@ -104,6 +103,8 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-poetry
 cp %{_builddir}/poetry-1.1.12/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
+pypi-dep-fix.py %{buildroot} keyring
+pypi-dep-fix.py %{buildroot} packaging
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
