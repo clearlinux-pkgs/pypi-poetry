@@ -4,13 +4,14 @@
 #
 Name     : pypi-poetry
 Version  : 1.1.12
-Release  : 8
+Release  : 9
 URL      : https://files.pythonhosted.org/packages/2e/90/0905a0ad5bb1a9eb8a820337e7c629cde76060fc1dc934e7b8ed450241b8/poetry-1.1.12.tar.gz
 Source0  : https://files.pythonhosted.org/packages/2e/90/0905a0ad5bb1a9eb8a820337e7c629cde76060fc1dc934e7b8ed450241b8/poetry-1.1.12.tar.gz
 Summary  : Python dependency management and packaging made easy.
 Group    : Development/Tools
 License  : MIT
 Requires: pypi-poetry-bin = %{version}-%{release}
+Requires: pypi-poetry-license = %{version}-%{release}
 Requires: pypi-poetry-python = %{version}-%{release}
 Requires: pypi-poetry-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
@@ -24,9 +25,18 @@ ensuring you have the right stack everywhere.
 %package bin
 Summary: bin components for the pypi-poetry package.
 Group: Binaries
+Requires: pypi-poetry-license = %{version}-%{release}
 
 %description bin
 bin components for the pypi-poetry package.
+
+
+%package license
+Summary: license components for the pypi-poetry package.
+Group: Default
+
+%description license
+license components for the pypi-poetry package.
 
 
 %package python
@@ -73,7 +83,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1641828925
+export SOURCE_DATE_EPOCH=1641829077
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -90,6 +100,8 @@ python3 -m build --wheel --skip-dependency-check --no-isolation
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-poetry
+cp %{_builddir}/poetry-1.1.12/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 pypi-dep-fix.py %{buildroot} keyring
 pypi-dep-fix.py %{buildroot} packaging
@@ -106,6 +118,10 @@ rm -f %{buildroot}*/usr/lib/python3.*/site-packages/poetry/__pycache__/__init__.
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/poetry
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 
 %files python
 %defattr(-,root,root,-)
