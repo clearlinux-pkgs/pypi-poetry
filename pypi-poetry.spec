@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.1.14
-Release  : 14
+Release  : 15
 URL      : https://files.pythonhosted.org/packages/b5/0c/6d139a547c5962da458f7899861d8f8f52a5909e37a100bf22e281007e7c/poetry-1.1.14.tar.gz
 Source0  : https://files.pythonhosted.org/packages/b5/0c/6d139a547c5962da458f7899861d8f8f52a5909e37a100bf22e281007e7c/poetry-1.1.14.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -86,7 +86,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657299611
+export SOURCE_DATE_EPOCH=1659672609
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -96,6 +96,7 @@ export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
+pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
 python3 -m build --wheel --skip-dependency-check --no-isolation
@@ -105,6 +106,7 @@ export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -msse2avx "
 export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
 python3 -m build --wheel --skip-dependency-check --no-isolation
@@ -115,8 +117,9 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-poetry
-cp %{_builddir}/poetry-1.1.14/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
+cp %{_builddir}/poetry-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
+pypi-dep-fix.py %{buildroot} crashtest
 pypi-dep-fix.py %{buildroot} keyring
 pypi-dep-fix.py %{buildroot} packaging
 echo ----[ mark ]----
