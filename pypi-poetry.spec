@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.2.1
-Release  : 21
+Release  : 22
 URL      : https://files.pythonhosted.org/packages/fa/73/e0870cd0049aff899a03ed04b9f3dc2642cce083f2c0eb6e276906b5c1ea/poetry-1.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/fa/73/e0870cd0049aff899a03ed04b9f3dc2642cce083f2c0eb6e276906b5c1ea/poetry-1.2.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1663600954
+export SOURCE_DATE_EPOCH=1665427410
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -108,8 +108,8 @@ pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -msse2avx"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -msse2avx "
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
@@ -124,8 +124,8 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-poetry
-cp %{_builddir}/poetry-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554 || :
-cp %{_builddir}/poetry-%{version}/tests/fixtures/with-include/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554 || :
+cp %{_builddir}/poetry-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
+cp %{_builddir}/poetry-%{version}/tests/fixtures/with-include/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 pypi-dep-fix.py %{buildroot} crashtest
 pypi-dep-fix.py %{buildroot} keyring
