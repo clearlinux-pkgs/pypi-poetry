@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.2.1
-Release  : 22
+Release  : 23
 URL      : https://files.pythonhosted.org/packages/fa/73/e0870cd0049aff899a03ed04b9f3dc2642cce083f2c0eb6e276906b5c1ea/poetry-1.2.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/fa/73/e0870cd0049aff899a03ed04b9f3dc2642cce083f2c0eb6e276906b5c1ea/poetry-1.2.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1665427410
+export SOURCE_DATE_EPOCH=1665429824
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -106,6 +106,7 @@ export MAKEFLAGS=%{?_smp_mflags}
 pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
+pypi-dep-fix.py . poetry-core
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
@@ -116,6 +117,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
 pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
+pypi-dep-fix.py . poetry-core
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 popd
@@ -130,6 +132,7 @@ pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 pypi-dep-fix.py %{buildroot} crashtest
 pypi-dep-fix.py %{buildroot} keyring
 pypi-dep-fix.py %{buildroot} packaging
+pypi-dep-fix.py %{buildroot} poetry-core
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
