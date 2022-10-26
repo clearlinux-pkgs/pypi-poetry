@@ -2,3 +2,4 @@ crashtest
 keyring
 packaging
 poetry-core
+requests-toolbelt
