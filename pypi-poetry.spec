@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.2.2
-Release  : 27
+Release  : 28
 URL      : https://files.pythonhosted.org/packages/98/4b/35736a678ef820e71e5ba895e853bc0e93eaa69c5621f47a559ce21bc588/poetry-1.2.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/98/4b/35736a678ef820e71e5ba895e853bc0e93eaa69c5621f47a559ce21bc588/poetry-1.2.2.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1666793399
+export SOURCE_DATE_EPOCH=1669546779
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -108,6 +108,7 @@ pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
 pypi-dep-fix.py . poetry-core
 pypi-dep-fix.py . requests-toolbelt
+pypi-dep-fix.py . cleo
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
@@ -120,6 +121,7 @@ pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
 pypi-dep-fix.py . poetry-core
 pypi-dep-fix.py . requests-toolbelt
+pypi-dep-fix.py . cleo
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 popd
@@ -136,6 +138,7 @@ pypi-dep-fix.py %{buildroot} keyring
 pypi-dep-fix.py %{buildroot} packaging
 pypi-dep-fix.py %{buildroot} poetry-core
 pypi-dep-fix.py %{buildroot} requests-toolbelt
+pypi-dep-fix.py %{buildroot} cleo
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----

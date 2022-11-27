@@ -3,3 +3,4 @@ keyring
 packaging
 poetry-core
 requests-toolbelt
+cleo
