@@ -1,0 +1,45 @@
+From 56ba5fe0251996a9a76cf428a2070538533367b0 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Mon, 12 Dec 2022 16:47:29 -0800
+Subject: [PATCH] Force remove lockfile from being pulled in
+
+---
+ PKG-INFO       | 1 -
+ pyproject.toml | 2 --
+ 2 files changed, 3 deletions(-)
+
+diff --git a/PKG-INFO b/PKG-INFO
+index 960da82..0935616 100644
+--- a/PKG-INFO
++++ b/PKG-INFO
+@@ -29,7 +29,6 @@ Requires-Dist: html5lib (>=1.0,<2.0)
+ Requires-Dist: importlib-metadata (>=4.4,<5.0) ; python_version < "3.10"
+ Requires-Dist: jsonschema (>=4.10.0,<5.0.0)
+ Requires-Dist: keyring (>=23.9.0,<24.0.0)
+-Requires-Dist: lockfile (>=0.12.2,<0.13.0)
+ Requires-Dist: packaging (>=20.4)
+ Requires-Dist: pexpect (>=4.7.0,<5.0.0)
+ Requires-Dist: pkginfo (>=1.5,<2.0)
+diff --git a/pyproject.toml b/pyproject.toml
+index c1d1fa5..2e956a6 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -59,7 +59,6 @@ html5lib = "^1.0"
+ importlib-metadata = { version = "^4.4", python = "<3.10" }
+ jsonschema = "^4.10.0"
+ keyring = "^23.9.0"
+-lockfile = "^0.12.2"
+ # packaging uses calver, so version is unclamped
+ packaging = ">=20.4"
+ pexpect = "^4.7.0"
+@@ -174,7 +173,6 @@ warn_unused_ignores = false
+ [[tool.mypy.overrides]]
+ module = [
+   'cachecontrol.*',
+-  'lockfile.*',
+   'pexpect.*',
+   'pkginfo.*',
+   'requests_toolbelt.*',
+-- 
+2.38.1
+

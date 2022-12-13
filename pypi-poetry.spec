@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.3.1
-Release  : 29
+Release  : 30
 URL      : https://files.pythonhosted.org/packages/1b/02/b2ac00c4d7baf3173f55193dfd4640c61a760f1803f8e09024d8c4d195d1/poetry-1.3.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/1b/02/b2ac00c4d7baf3173f55193dfd4640c61a760f1803f8e09024d8c4d195d1/poetry-1.3.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -16,6 +16,7 @@ Requires: pypi-poetry-python = %{version}-%{release}
 Requires: pypi-poetry-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : pypi(poetry_core)
+Patch1: 0001-Force-remove-lockfile-from-being-pulled-in.patch
 
 %description
 # Poetry: Python packaging and dependency management made easy
@@ -86,6 +87,7 @@ python3 components for the pypi-poetry package.
 %prep
 %setup -q -n poetry-1.3.1
 cd %{_builddir}/poetry-1.3.1
+%patch1 -p1
 pushd ..
 cp -a poetry-1.3.1 buildavx2
 popd
@@ -95,7 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1670883291
+export SOURCE_DATE_EPOCH=1670892529
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -132,7 +134,8 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-poetry
-cp %{_builddir}/poetry-%{version}/tests/fixtures/with-include/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554 || :
+cp %{_builddir}/poetry-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/7bc236a823ce6ebdaa7c2490792581b9ed00afe7
+cp %{_builddir}/poetry-%{version}/tests/fixtures/with-include/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 pypi-dep-fix.py %{buildroot} crashtest
 pypi-dep-fix.py %{buildroot} keyring
@@ -165,6 +168,7 @@ rm -f %{buildroot}*/usr/lib/python3.*/site-packages/poetry/__pycache__/__init__.
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-poetry/7bc236a823ce6ebdaa7c2490792581b9ed00afe7
 /usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554
 
 %files python
