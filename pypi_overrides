@@ -4,3 +4,4 @@ packaging
 poetry-core
 requests-toolbelt
 cleo
+platformdirs
