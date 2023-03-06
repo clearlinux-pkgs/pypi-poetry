@@ -4,7 +4,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.4.0
-Release  : 34
+Release  : 35
 URL      : https://files.pythonhosted.org/packages/ea/4e/575bbb915054e2875acba262568d19bc60f53b3e997a3e067dea5f21a35d/poetry-1.4.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/ea/4e/575bbb915054e2875acba262568d19bc60f53b3e997a3e067dea5f21a35d/poetry-1.4.0.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -58,6 +58,7 @@ python components for the pypi-poetry package.
 Summary: python3 components for the pypi-poetry package.
 Group: Default
 Requires: python3-core
+Provides: pypi(poetry)
 
 %description python3
 python3 components for the pypi-poetry package.
@@ -75,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1678114214
+export SOURCE_DATE_EPOCH=1678114967
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
