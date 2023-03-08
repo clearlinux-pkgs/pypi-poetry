@@ -1,6 +1,6 @@
-From 56ba5fe0251996a9a76cf428a2070538533367b0 Mon Sep 17 00:00:00 2001
+From 159b3068f8023952cf172f6824bec68918d16f82 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
-Date: Mon, 12 Dec 2022 16:47:29 -0800
+Date: Wed, 8 Mar 2023 12:45:51 -0800
 Subject: [PATCH] Force remove lockfile from being pulled in
 
 ---
@@ -9,37 +9,37 @@ Subject: [PATCH] Force remove lockfile from being pulled in
  2 files changed, 3 deletions(-)
 
 diff --git a/PKG-INFO b/PKG-INFO
-index 960da82..0935616 100644
+index 39e81cf..0ea02e4 100644
 --- a/PKG-INFO
 +++ b/PKG-INFO
-@@ -29,7 +29,6 @@ Requires-Dist: html5lib (>=1.0,<2.0)
- Requires-Dist: importlib-metadata (>=4.4,<5.0) ; python_version < "3.10"
+@@ -31,7 +31,6 @@ Requires-Dist: importlib-metadata (>=4.4) ; python_version < "3.10"
+ Requires-Dist: installer (>=0.6.0,<0.7.0)
  Requires-Dist: jsonschema (>=4.10.0,<5.0.0)
  Requires-Dist: keyring (>=23.9.0,<24.0.0)
 -Requires-Dist: lockfile (>=0.12.2,<0.13.0)
  Requires-Dist: packaging (>=20.4)
  Requires-Dist: pexpect (>=4.7.0,<5.0.0)
- Requires-Dist: pkginfo (>=1.5,<2.0)
+ Requires-Dist: pkginfo (>=1.9.4,<2.0.0)
 diff --git a/pyproject.toml b/pyproject.toml
-index c1d1fa5..2e956a6 100644
+index 3e3fdb7..42f360b 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -59,7 +59,6 @@ html5lib = "^1.0"
- importlib-metadata = { version = "^4.4", python = "<3.10" }
+@@ -61,7 +61,6 @@ importlib-metadata = { version = ">=4.4", python = "<3.10" }
+ installer = "^0.6.0"
  jsonschema = "^4.10.0"
  keyring = "^23.9.0"
 -lockfile = "^0.12.2"
  # packaging uses calver, so version is unclamped
  packaging = ">=20.4"
  pexpect = "^4.7.0"
-@@ -174,7 +173,6 @@ warn_unused_ignores = false
+@@ -179,7 +178,6 @@ warn_unused_ignores = false
  [[tool.mypy.overrides]]
  module = [
-   'cachecontrol.*',
--  'lockfile.*',
-   'pexpect.*',
-   'pkginfo.*',
-   'requests_toolbelt.*',
+     'cachecontrol.*',
+-    'lockfile.*',
+     'pexpect.*',
+     'requests_toolbelt.*',
+     'shellingham.*',
 -- 
 2.38.1
 
