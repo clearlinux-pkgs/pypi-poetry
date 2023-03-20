@@ -5,7 +5,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.4.1
-Release  : 40
+Release  : 41
 URL      : https://files.pythonhosted.org/packages/10/7d/8014383fafeb34f0e8791b2c4a36781460f0deada75baaa2a925fbe3a2c3/poetry-1.4.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/10/7d/8014383fafeb34f0e8791b2c4a36781460f0deada75baaa2a925fbe3a2c3/poetry-1.4.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1679328595
+export SOURCE_DATE_EPOCH=1679328731
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -121,6 +121,7 @@ pypi-dep-fix.py . poetry-core
 pypi-dep-fix.py . requests-toolbelt
 pypi-dep-fix.py . cleo
 pypi-dep-fix.py . platformdirs
+pypi-dep-fix.py . installer
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
@@ -135,6 +136,7 @@ pypi-dep-fix.py . poetry-core
 pypi-dep-fix.py . requests-toolbelt
 pypi-dep-fix.py . cleo
 pypi-dep-fix.py . platformdirs
+pypi-dep-fix.py . installer
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 popd
@@ -153,6 +155,7 @@ pypi-dep-fix.py %{buildroot} poetry-core
 pypi-dep-fix.py %{buildroot} requests-toolbelt
 pypi-dep-fix.py %{buildroot} cleo
 pypi-dep-fix.py %{buildroot} platformdirs
+pypi-dep-fix.py %{buildroot} installer
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
