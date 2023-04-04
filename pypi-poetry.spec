@@ -4,10 +4,10 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-poetry
-Version  : 1.4.1
-Release  : 41
-URL      : https://files.pythonhosted.org/packages/10/7d/8014383fafeb34f0e8791b2c4a36781460f0deada75baaa2a925fbe3a2c3/poetry-1.4.1.tar.gz
-Source0  : https://files.pythonhosted.org/packages/10/7d/8014383fafeb34f0e8791b2c4a36781460f0deada75baaa2a925fbe3a2c3/poetry-1.4.1.tar.gz
+Version  : 1.4.2
+Release  : 42
+URL      : https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
+Source0  : https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
 Summary  : Python dependency management and packaging made easy.
 Group    : Development/Tools
 License  : MIT
@@ -16,7 +16,7 @@ Requires: pypi-poetry-license = %{version}-%{release}
 Requires: pypi-poetry-python = %{version}-%{release}
 Requires: pypi-poetry-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(poetry_core)
+BuildRequires : pypi(poetry)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -92,11 +92,11 @@ python3 components for the pypi-poetry package.
 
 
 %prep
-%setup -q -n poetry-1.4.1
-cd %{_builddir}/poetry-1.4.1
+%setup -q -n poetry-1.4.2
+cd %{_builddir}/poetry-1.4.2
 %patch1 -p1
 pushd ..
-cp -a poetry-1.4.1 buildavx2
+cp -a poetry-1.4.2 buildavx2
 popd
 
 %build
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1679328731
+export SOURCE_DATE_EPOCH=1680628215
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
