@@ -5,7 +5,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.4.2
-Release  : 42
+Release  : 43
 URL      : https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -104,7 +104,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680628215
+export SOURCE_DATE_EPOCH=1682319036
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -122,6 +122,7 @@ pypi-dep-fix.py . requests-toolbelt
 pypi-dep-fix.py . cleo
 pypi-dep-fix.py . platformdirs
 pypi-dep-fix.py . installer
+pypi-dep-fix.py . trove-classifiers
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
@@ -137,6 +138,7 @@ pypi-dep-fix.py . requests-toolbelt
 pypi-dep-fix.py . cleo
 pypi-dep-fix.py . platformdirs
 pypi-dep-fix.py . installer
+pypi-dep-fix.py . trove-classifiers
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 popd
@@ -156,6 +158,7 @@ pypi-dep-fix.py %{buildroot} requests-toolbelt
 pypi-dep-fix.py %{buildroot} cleo
 pypi-dep-fix.py %{buildroot} platformdirs
 pypi-dep-fix.py %{buildroot} installer
+pypi-dep-fix.py %{buildroot} trove-classifiers
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
