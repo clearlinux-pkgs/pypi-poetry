@@ -1,5 +1,5 @@
 PKG_NAME := pypi-poetry
-URL = https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
+URL = https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common

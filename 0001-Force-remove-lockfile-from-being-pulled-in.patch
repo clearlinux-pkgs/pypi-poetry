@@ -32,14 +32,11 @@ index 3e3fdb7..42f360b 100644
  # packaging uses calver, so version is unclamped
  packaging = ">=20.4"
  pexpect = "^4.7.0"
-@@ -179,7 +178,6 @@ warn_unused_ignores = false
- [[tool.mypy.overrides]]
- module = [
-     'cachecontrol.*',
+@@ -194,7 +194,6 @@
+     'deepdiff.*',
+     'httpretty.*',
+     'keyring.*',
 -    'lockfile.*',
      'pexpect.*',
      'requests_toolbelt.*',
      'shellingham.*',
--- 
-2.38.1
-

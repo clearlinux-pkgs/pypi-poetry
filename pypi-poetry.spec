@@ -4,10 +4,10 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-poetry
-Version  : 1.4.2
-Release  : 43
-URL      : https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
-Source0  : https://files.pythonhosted.org/packages/b2/8f/664c5d6fb391421606f2641b22542fecc1a785b508b6618c8726c2eb0a79/poetry-1.4.2.tar.gz
+Version  : 1.5.1
+Release  : 44
+URL      : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
+Source0  : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
 Group    : Development/Tools
 License  : MIT
@@ -16,7 +16,7 @@ Requires: pypi-poetry-license = %{version}-%{release}
 Requires: pypi-poetry-python = %{version}-%{release}
 Requires: pypi-poetry-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(poetry)
+BuildRequires : pypi(poetry_core)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -92,11 +92,11 @@ python3 components for the pypi-poetry package.
 
 
 %prep
-%setup -q -n poetry-1.4.2
-cd %{_builddir}/poetry-1.4.2
+%setup -q -n poetry-1.5.1
+cd %{_builddir}/poetry-1.5.1
 %patch1 -p1
 pushd ..
-cp -a poetry-1.4.2 buildavx2
+cp -a poetry-1.5.1 buildavx2
 popd
 
 %build
@@ -104,15 +104,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682319036
+export SOURCE_DATE_EPOCH=1685454739
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export MAKEFLAGS=%{?_smp_mflags}
 pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
