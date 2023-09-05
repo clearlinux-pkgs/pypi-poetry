@@ -5,7 +5,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.5.1
-Release  : 45
+Release  : 46
 URL      : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -66,8 +66,6 @@ Requires: pypi(cachecontrol)
 Requires: pypi(cleo)
 Requires: pypi(crashtest)
 Requires: pypi(dulwich)
-Requires: pypi(filelock)
-Requires: pypi(html5lib)
 Requires: pypi(installer)
 Requires: pypi(jsonschema)
 Requires: pypi(keyring)
@@ -83,7 +81,6 @@ Requires: pypi(requests_toolbelt)
 Requires: pypi(shellingham)
 Requires: pypi(tomlkit)
 Requires: pypi(trove_classifiers)
-Requires: pypi(urllib3)
 Requires: pypi(virtualenv)
 Provides: pypi(poetry)
 
@@ -94,7 +91,7 @@ python3 components for the pypi-poetry package.
 %prep
 %setup -q -n poetry-1.5.1
 cd %{_builddir}/poetry-1.5.1
-%patch1 -p1
+%patch -P 1 -p1
 pushd ..
 cp -a poetry-1.5.1 buildavx2
 popd
@@ -104,7 +101,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685640716
+export SOURCE_DATE_EPOCH=1693937601
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -124,6 +121,7 @@ pypi-dep-fix.py . platformdirs
 pypi-dep-fix.py . installer
 pypi-dep-fix.py . trove-classifiers
 pypi-dep-fix.py . cachecontrol
+pypi-dep-fix.py . build
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
@@ -141,6 +139,7 @@ pypi-dep-fix.py . platformdirs
 pypi-dep-fix.py . installer
 pypi-dep-fix.py . trove-classifiers
 pypi-dep-fix.py . cachecontrol
+pypi-dep-fix.py . build
 python3 -m build --wheel --skip-dependency-check --no-isolation
 
 popd
@@ -162,6 +161,7 @@ pypi-dep-fix.py %{buildroot} platformdirs
 pypi-dep-fix.py %{buildroot} installer
 pypi-dep-fix.py %{buildroot} trove-classifiers
 pypi-dep-fix.py %{buildroot} cachecontrol
+pypi-dep-fix.py %{buildroot} build
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
