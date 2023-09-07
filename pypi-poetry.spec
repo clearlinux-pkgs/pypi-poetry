@@ -5,7 +5,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.5.1
-Release  : 46
+Release  : 47
 URL      : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
@@ -82,6 +82,7 @@ Requires: pypi(shellingham)
 Requires: pypi(tomlkit)
 Requires: pypi(trove_classifiers)
 Requires: pypi(virtualenv)
+Requires: pypi-html5lib
 Provides: pypi(poetry)
 
 %description python3
@@ -101,7 +102,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1693937601
+export SOURCE_DATE_EPOCH=1694096936
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
