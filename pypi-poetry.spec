@@ -4,10 +4,10 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-poetry
-Version  : 1.5.1
-Release  : 47
-URL      : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
-Source0  : https://files.pythonhosted.org/packages/ab/42/1c8769483f4e72d17fd7b827d11be37a48289d38df40b1d8640ef53d7b33/poetry-1.5.1.tar.gz
+Version  : 1.6.1
+Release  : 48
+URL      : https://files.pythonhosted.org/packages/c6/5f/f60c900299e05736900a732f079a306b762d1343e47d965862d140b6e550/poetry-1.6.1.tar.gz
+Source0  : https://files.pythonhosted.org/packages/c6/5f/f60c900299e05736900a732f079a306b762d1343e47d965862d140b6e550/poetry-1.6.1.tar.gz
 Summary  : Python dependency management and packaging made easy.
 Group    : Development/Tools
 License  : MIT
@@ -20,10 +20,10 @@ BuildRequires : pypi(poetry_core)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0001-Force-remove-lockfile-from-being-pulled-in.patch
 
 %description
 # Poetry: Python packaging and dependency management made easy
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![Stable Version](https://img.shields.io/pypi/v/poetry?label=stable)][PyPI Releases]
 [![Pre-release Version](https://img.shields.io/github/v/release/python-poetry/poetry?label=pre-release&include_prereleases&sort=semver)][PyPI Releases]
 [![Python Versions](https://img.shields.io/pypi/pyversions/poetry)][PyPI]
@@ -90,11 +90,10 @@ python3 components for the pypi-poetry package.
 
 
 %prep
-%setup -q -n poetry-1.5.1
-cd %{_builddir}/poetry-1.5.1
-%patch -P 1 -p1
+%setup -q -n poetry-1.6.1
+cd %{_builddir}/poetry-1.6.1
 pushd ..
-cp -a poetry-1.5.1 buildavx2
+cp -a poetry-1.6.1 buildavx2
 popd
 
 %build
@@ -102,15 +101,21 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1694096936
+export SOURCE_DATE_EPOCH=1697227364
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 export MAKEFLAGS=%{?_smp_mflags}
 pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
@@ -125,11 +130,11 @@ pypi-dep-fix.py . cachecontrol
 pypi-dep-fix.py . build
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v3 "
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -m64 -march=x86-64-v3 "
 pypi-dep-fix.py . crashtest
 pypi-dep-fix.py . keyring
 pypi-dep-fix.py . packaging
@@ -146,12 +151,26 @@ python3 -m build --wheel --skip-dependency-check --no-isolation
 popd
 
 %install
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-poetry
 cp %{_builddir}/poetry-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/7bc236a823ce6ebdaa7c2490792581b9ed00afe7 || :
 cp %{_builddir}/poetry-%{version}/tests/fixtures/with-include/LICENSE %{buildroot}/usr/share/package-licenses/pypi-poetry/84661790a5df00ab944c2d37978d6ce5ac88e554 || :
-pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
+python3 -m installer --destdir=%{buildroot} dist/*.whl
 pypi-dep-fix.py %{buildroot} crashtest
 pypi-dep-fix.py %{buildroot} keyring
 pypi-dep-fix.py %{buildroot} packaging
@@ -167,12 +186,12 @@ echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
-pip install --root=%{buildroot}-v3 --no-deps --ignore-installed dist/*.whl
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v3 "
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -m64 -march=x86-64-v3 "
+python3 -m installer --destdir=%{buildroot}-v3 dist/*.whl
 popd
 ## Remove excluded files
 rm -f %{buildroot}*/usr/lib/python3.*/site-packages/poetry/__init__.py
