@@ -7,7 +7,7 @@
 #
 Name     : pypi-poetry
 Version  : 1.8.3
-Release  : 53
+Release  : 54
 URL      : https://files.pythonhosted.org/packages/07/c7/41108195c39ac1010054ef6b3b445894cee79e8ec73f086b73da94a01901/poetry-1.8.3.tar.gz
 Source0  : https://files.pythonhosted.org/packages/07/c7/41108195c39ac1010054ef6b3b445894cee79e8ec73f086b73da94a01901/poetry-1.8.3.tar.gz
 Summary  : Python dependency management and packaging made easy.
